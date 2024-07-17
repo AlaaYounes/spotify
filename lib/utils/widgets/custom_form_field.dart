@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:spotify/core/config/theme/app_colors.dart';
 
 class CustomFormField extends StatelessWidget {
   var controller = TextEditingController();
-  final String hintText;
+  String hintText;
   final String labelText;
   final bool isPassword;
   final TextInputType keyboardType;
@@ -21,7 +22,7 @@ class CustomFormField extends StatelessWidget {
   CustomFormField({
     super.key,
     required this.controller,
-    this.hintText = '',
+    required this.hintText,
     this.labelText = '',
     this.isPassword = false,
     this.keyboardType = TextInputType.text,
@@ -49,6 +50,7 @@ class CustomFormField extends StatelessWidget {
       onTap: onTap,
       obscureText: isPassword,
       keyboardType: keyboardType,
+      style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: 17.sp),
       decoration: InputDecoration(
         labelText: labelText,
         labelStyle: Theme.of(context).textTheme.labelSmall,
@@ -56,6 +58,10 @@ class CustomFormField extends StatelessWidget {
         hintStyle: Theme.of(context).textTheme.labelSmall,
         fillColor: backgroundColor,
         filled: true,
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(borderRadius),
+          borderSide: const BorderSide(color: AppColors.grey),
+        ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(borderRadius),
           borderSide: const BorderSide(color: AppColors.primary),
@@ -65,12 +71,12 @@ class CustomFormField extends StatelessWidget {
         ),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(borderRadius),
-          borderSide: const BorderSide(color: AppColors.primary, width: 2),
+          borderSide: const BorderSide(color: AppColors.primary, width: 1),
         ),
         disabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(borderRadius),
           borderSide:
-              BorderSide(color: AppColors.grey.withOpacity(.3), width: 2),
+              BorderSide(color: AppColors.grey.withOpacity(.3), width: 1),
         ),
         suffixIcon: suffix,
         prefixIcon: prefix,
