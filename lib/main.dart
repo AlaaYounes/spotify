@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -5,8 +6,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:spotify/core/config/theme/app_theme.dart';
-import 'package:spotify/onboarding/get_started_page.dart';
+import 'package:spotify/features/authentication/presentation/pages/auth_changes.dart';
+import 'package:spotify/service_locator.dart' as di;
 
+import 'features/authentication/presentation/cubit/cubit.dart';
 import 'features/theme/cubit/cubit.dart';
 
 Future<void> main() async {
@@ -16,6 +19,8 @@ Future<void> main() async {
         ? HydratedStorage.webStorageDirectory
         : await getApplicationDocumentsDirectory(),
   );
+  await Firebase.initializeApp();
+  di.initServiceLocator();
   runApp(const MyApp());
 }
 
@@ -32,6 +37,9 @@ class MyApp extends StatelessWidget {
           BlocProvider(
             create: (context) => ThemeCubit(),
           ),
+          BlocProvider(
+            create: (context) => AuthCubit(),
+          ),
         ],
         child: BlocBuilder<ThemeCubit, ThemeMode>(
           builder: (context, mode) => MaterialApp(
@@ -39,7 +47,7 @@ class MyApp extends StatelessWidget {
             themeMode: mode,
             theme: AppTheme.lightTheme,
             darkTheme: AppTheme.darkTheme,
-            home: const GetStartedPage(),
+            home: const AuthChanges(),
           ),
         ),
       ),
