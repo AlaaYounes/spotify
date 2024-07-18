@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:spotify/bloc_observer.dart';
 import 'package:spotify/core/config/theme/app_theme.dart';
 import 'package:spotify/features/authentication/presentation/pages/auth_changes.dart';
 import 'package:spotify/service_locator.dart' as di;
@@ -19,6 +20,7 @@ Future<void> main() async {
         ? HydratedStorage.webStorageDirectory
         : await getApplicationDocumentsDirectory(),
   );
+  Bloc.observer = MyBlocObserver();
   await Firebase.initializeApp();
   di.initServiceLocator();
   runApp(const MyApp());

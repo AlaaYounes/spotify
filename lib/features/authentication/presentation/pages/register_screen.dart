@@ -111,8 +111,12 @@ class RegisterScreen extends StatelessWidget {
                           SizedBox(
                             height: 30.h,
                           ),
-                          BasicAppButton(
-                            onPressed: () async {
+                          state is AuthLoadingState
+                              ? const CircularProgressIndicator(
+                                  color: AppColors.primary,
+                                )
+                              : BasicAppButton(
+                                  onPressed: () async {
                               if (cubit.signUpFormKey.currentState!
                                   .validate()) {
                                 cubit.signUp();
@@ -197,7 +201,9 @@ class RegisterScreen extends StatelessWidget {
             Navigator.pushReplacement(
               context,
               MaterialPageRoute(
-                builder: (context) => const HomeScreen(email: ''),
+                builder: (context) => HomeScreen(
+                  user: state.user,
+                ),
               ),
             );
             ScaffoldMessenger.of(context).showSnackBar(

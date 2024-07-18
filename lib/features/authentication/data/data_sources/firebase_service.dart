@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -26,8 +27,13 @@ class AuthFirebaseServiceImpl implements AuthFirebaseService {
   @override
   Future<Either> signUp(String email, String password, String name) async {
     try {
-      await FirebaseAuth.instance
+      var userCredential = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);
+      await userCredential.user?.updateDisplayName(name);
+      await FirebaseFirestore.instance.collection('users').add({
+        'name': name,
+        'email': userCredential.user?.email,
+      });
       return const Right('Signed up successfully');
     } on FirebaseAuthException catch (e) {
       String errorMessage = '';

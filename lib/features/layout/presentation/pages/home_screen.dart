@@ -5,9 +5,9 @@ import 'package:spotify/features/authentication/presentation/pages/auth_changes.
 import 'package:spotify/utils/widgets/basicAppButton.dart';
 
 class HomeScreen extends StatelessWidget {
-  final String email;
+  User user;
 
-  const HomeScreen({super.key, required this.email});
+  HomeScreen({super.key, required this.user});
 
   @override
   Widget build(BuildContext context) {
@@ -15,18 +15,19 @@ class HomeScreen extends StatelessWidget {
       body: Center(
         child: Column(
           children: [
-            Text(email),
+            Text(user.displayName ?? "No Name"),
             SizedBox(
               height: 10.h,
             ),
             const Text("Welcome To My App"),
             BasicAppButton(
                 onPressed: () {
-                  FirebaseAuth.instance.signOut();
-                  Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const AuthChanges()));
+                  FirebaseAuth.instance.signOut().then((value) {
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const AuthChanges()));
+                  });
                 },
                 title: "Sign Out"),
           ],
