@@ -87,16 +87,20 @@ class SignInScreen extends StatelessWidget {
                           SizedBox(
                             height: 30.h,
                           ),
-                          BasicAppButton(
-                            onPressed: () async {
-                              if (!cubit.signInFormKey.currentState!.validate())
-                                return;
-                              cubit.signIn();
-                            },
-                            title: 'Sign In',
-                            width: double.infinity,
-                            height: 80.h,
-                          ),
+                          state is AuthLoadingState
+                              ? const CircularProgressIndicator(
+                                  color: AppColors.primary,
+                                )
+                              : BasicAppButton(
+                                  onPressed: () async {
+                                    if (!cubit.signInFormKey.currentState!
+                                        .validate()) return;
+                                    cubit.signIn();
+                                  },
+                                  title: 'Sign In',
+                                  width: double.infinity,
+                                  height: 80.h,
+                                ),
                         ],
                       ),
                     ),
@@ -175,7 +179,9 @@ class SignInScreen extends StatelessWidget {
             Navigator.pushReplacement(
               context,
               MaterialPageRoute(
-                builder: (context) => const HomeScreen(email: ""),
+                builder: (context) => HomeScreen(
+                  user: state.user,
+                ),
               ),
             );
             ScaffoldMessenger.of(context).showSnackBar(

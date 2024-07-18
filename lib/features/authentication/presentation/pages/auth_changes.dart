@@ -12,7 +12,7 @@ class AuthChanges extends StatelessWidget {
       stream: FirebaseAuth.instance.authStateChanges(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          return HomeScreen(email: snapshot.data!.email!);
+          return HomeScreen(user: snapshot.data!);
         } else {
           return const AuthHome();
         }

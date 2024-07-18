@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spotify/features/authentication/presentation/cubit/states.dart';
@@ -49,7 +50,10 @@ class AuthCubit extends Cubit<AuthStates> {
     );
     response.fold(
       (l) => emit(SignUpErrorState(errorMessage: l)),
-      (r) => emit(SignUpSuccessState(message: r)),
+      (r) {
+        User? user = FirebaseAuth.instance.currentUser;
+        emit(SignUpSuccessState(message: r, user: user!));
+      },
     );
   }
 
@@ -59,7 +63,10 @@ class AuthCubit extends Cubit<AuthStates> {
         signInEmailController.text, signInPasswordController.text);
     response.fold(
       (l) => emit(SignInErrorState(errorMessage: l)),
-      (r) => emit(SignInSuccessState(message: r)),
+      (r) {
+        User? user = FirebaseAuth.instance.currentUser;
+        emit(SignInSuccessState(message: r, user: user!));
+      },
     );
   }
 
