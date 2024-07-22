@@ -8,6 +8,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:spotify/bloc_observer.dart';
 import 'package:spotify/core/config/theme/app_theme.dart';
 import 'package:spotify/features/authentication/presentation/pages/auth_changes.dart';
+import 'package:spotify/features/layout/presentation/cubit/cubit.dart';
 import 'package:spotify/service_locator.dart' as di;
 
 import 'features/authentication/presentation/cubit/cubit.dart';
@@ -42,6 +43,10 @@ class MyApp extends StatelessWidget {
           BlocProvider(
             create: (context) => AuthCubit(),
           ),
+          BlocProvider(
+              create: (context) => HomeScreenCubit()
+                ..getSongs()
+                ..getSongPlaylist()),
         ],
         child: BlocBuilder<ThemeCubit, ThemeMode>(
           builder: (context, mode) => MaterialApp(

@@ -8,6 +8,7 @@ import 'package:spotify/features/authentication/presentation/pages/register_scre
 import 'package:spotify/features/layout/presentation/pages/home_screen.dart';
 import 'package:spotify/utils/widgets/basicAppButton.dart';
 import 'package:spotify/utils/widgets/custom_form_field.dart';
+
 import '../cubit/cubit.dart';
 import '../cubit/states.dart';
 import '../widgets/header.dart';
@@ -30,7 +31,7 @@ class SignInScreen extends StatelessWidget {
                   children: [
                     Padding(
                       padding: EdgeInsets.only(top: 5.h),
-                      child: const AppHeader(),
+                      child: AppHeader(),
                     ),
                     SizedBox(
                       height: 100.h,
