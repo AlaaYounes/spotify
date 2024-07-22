@@ -47,6 +47,9 @@ class MyApp extends StatelessWidget {
               create: (context) => HomeScreenCubit()
                 ..getSongs()
                 ..getSongPlaylist()),
+          // BlocProvider(
+          //   create: (context) => SongPlayerCubit(),
+          // ),
         ],
         child: BlocBuilder<ThemeCubit, ThemeMode>(
           builder: (context, mode) => MaterialApp(
