@@ -29,10 +29,7 @@ class RegisterScreen extends StatelessWidget {
                 key: cubit.signUpFormKey,
                 child: Column(
                   children: [
-                    Padding(
-                      padding: EdgeInsets.only(top: 5.h),
-                      child: const AppHeader(),
-                    ),
+                    AppHeader(),
                     SizedBox(
                       height: 70.h,
                     ),

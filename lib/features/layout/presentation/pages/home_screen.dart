@@ -1,8 +1,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:spotify/features/authentication/presentation/pages/auth_changes.dart';
-import 'package:spotify/utils/widgets/basicAppButton.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:spotify/core/config/assets/app_vectors.dart';
+import 'package:spotify/features/layout/presentation/widgets/playlist.dart';
+import 'package:spotify/features/layout/presentation/widgets/songs_list.dart';
+import 'package:spotify/features/layout/presentation/widgets/tabs_list.dart';
+
+import '../../../../core/config/assets/app_images.dart';
+import '../../../authentication/presentation/widgets/header.dart';
 
 class HomeScreen extends StatelessWidget {
   User user;
@@ -12,24 +18,38 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Column(
+      body: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 20.w),
+        child: ListView(
           children: [
-            Text(user.displayName ?? "No Name"),
-            SizedBox(
-              height: 10.h,
+            AppHeader(
+              hideBack: true,
             ),
-            const Text("Welcome To My App"),
-            BasicAppButton(
-                onPressed: () {
-                  FirebaseAuth.instance.signOut().then((value) {
-                    Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const AuthChanges()));
-                  });
-                },
-                title: "Sign Out"),
+            SizedBox(
+              height: 150.h,
+              child: Stack(
+                children: [
+                  Align(
+                      alignment: Alignment.bottomCenter,
+                      child: SvgPicture.asset(AppVectors.homeTopCard)),
+                  Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Image.asset(AppImages.advertisement)),
+                ],
+              ),
+            ),
+            SizedBox(
+              height: 20.h,
+            ),
+            const TabsList(),
+            SizedBox(
+              height: 20.h,
+            ),
+            SizedBox(height: 250.h, child: const SongsList()),
+            SizedBox(
+              height: 20.h,
+            ),
+            const Playlist(),
           ],
         ),
       ),

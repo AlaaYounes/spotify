@@ -5,6 +5,11 @@ import 'package:spotify/core/config/theme/app_colors.dart';
 class AppTheme {
   static ThemeData lightTheme = ThemeData(
     primaryColor: AppColors.primary,
+    appBarTheme: const AppBarTheme(
+      backgroundColor: Colors.transparent,
+      elevation: 0,
+      centerTitle: true,
+    ),
     scaffoldBackgroundColor: AppColors.lightBackground,
     brightness: Brightness.light,
     fontFamily: 'Satoshi',
@@ -15,6 +20,22 @@ class AppTheme {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(30.r)),
         ),
+      ),
+    ),
+    tabBarTheme: TabBarTheme(
+      dividerColor: AppColors.lightBackground,
+      indicatorColor: AppColors.primary,
+      labelColor: Colors.black,
+      unselectedLabelColor: AppColors.grey,
+      labelStyle: TextStyle(
+        fontFamily: 'Satoshi',
+        fontSize: 20.sp,
+        fontWeight: FontWeight.bold,
+      ),
+      unselectedLabelStyle: TextStyle(
+        fontFamily: 'Satoshi',
+        fontSize: 20.sp,
+        fontWeight: FontWeight.bold,
       ),
     ),
     textTheme: TextTheme(
@@ -48,9 +69,26 @@ class AppTheme {
         fontSize: 16.sp,
         fontWeight: FontWeight.w500,
       ),
+      labelLarge: TextStyle(
+        fontFamily: 'Satoshi',
+        color: AppColors.black,
+        fontSize: 20.sp,
+        fontWeight: FontWeight.bold,
+      ),
+      titleSmall: TextStyle(
+        fontFamily: 'Satoshi',
+        color: AppColors.black.withOpacity(.4),
+        fontSize: 15.sp,
+        fontWeight: FontWeight.w400,
+      ),
     ),
   );
   static ThemeData darkTheme = ThemeData(
+    appBarTheme: const AppBarTheme(
+      backgroundColor: Colors.transparent,
+      elevation: 0,
+      centerTitle: true,
+    ),
     primaryColor: AppColors.primary,
     scaffoldBackgroundColor: AppColors.darkBackground,
     brightness: Brightness.dark,
@@ -62,6 +100,22 @@ class AppTheme {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(30.r)),
         ),
+      ),
+    ),
+    tabBarTheme: TabBarTheme(
+      dividerColor: AppColors.darkBackground,
+      indicatorColor: AppColors.primary,
+      labelColor: Colors.white,
+      unselectedLabelColor: AppColors.grey,
+      labelStyle: TextStyle(
+        fontFamily: 'Satoshi',
+        fontSize: 20.sp,
+        fontWeight: FontWeight.bold,
+      ),
+      unselectedLabelStyle: TextStyle(
+        fontFamily: 'Satoshi',
+        fontSize: 20.sp,
+        fontWeight: FontWeight.bold,
       ),
     ),
     textTheme: TextTheme(
@@ -94,6 +148,18 @@ class AppTheme {
         color: const Color(0xffA7A7A7),
         fontSize: 16.sp,
         fontWeight: FontWeight.w500,
+      ),
+      labelLarge: TextStyle(
+        fontFamily: 'Satoshi',
+        color: AppColors.white,
+        fontSize: 20.sp,
+        fontWeight: FontWeight.bold,
+      ),
+      titleSmall: TextStyle(
+        fontFamily: 'Satoshi',
+        color: AppColors.grey,
+        fontSize: 15.sp,
+        fontWeight: FontWeight.bold,
       ),
     ),
   );
