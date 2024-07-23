@@ -57,7 +57,7 @@ class PlaylistItem extends StatelessWidget {
         ),
         const Spacer(),
         Text(
-          song.duration.toString(),
+          formatDuration(song.duration).toString(),
           style: Theme.of(context).textTheme.titleSmall,
         ),
         SizedBox(width: 20.w),
@@ -67,5 +67,11 @@ class PlaylistItem extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  formatDuration(double number) {
+    int minutes = number.toInt();
+    int seconds = ((number - minutes) * 100).toInt();
+    return "${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}";
   }
 }
