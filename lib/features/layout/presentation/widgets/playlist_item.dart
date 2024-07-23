@@ -5,6 +5,7 @@ import 'package:spotify/features/layout/domain/entities/song_entity.dart';
 
 import '../../../../core/config/assets/app_images.dart';
 import '../../../../core/config/assets/app_vectors.dart';
+import '../../../playing_scong/presentation/pages/now_playing_screen.dart';
 
 class PlaylistItem extends StatelessWidget {
   const PlaylistItem({super.key, required this.song});
@@ -15,19 +16,27 @@ class PlaylistItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Container(
-          height: 40.h,
-          width: 40.w,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            color: Theme.of(context).brightness == Brightness.dark
-                ? const Color(0xff2C2C2C)
-                : const Color(0xffE6E6E6),
-            image: DecorationImage(
-                image: AssetImage(
-                    Theme.of(context).brightness == Brightness.dark
-                        ? AppImages.playIconDark
-                        : AppImages.playIcon)),
+        GestureDetector(
+          onTap: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => NowPlayingScreen(song: song)));
+          },
+          child: Container(
+            height: 40.h,
+            width: 40.w,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: Theme.of(context).brightness == Brightness.dark
+                  ? const Color(0xff2C2C2C)
+                  : const Color(0xffE6E6E6),
+              image: DecorationImage(
+                  image: AssetImage(
+                      Theme.of(context).brightness == Brightness.dark
+                          ? AppImages.playIconDark
+                          : AppImages.playIcon)),
+            ),
           ),
         ),
         SizedBox(width: 10.w),
@@ -48,7 +57,7 @@ class PlaylistItem extends StatelessWidget {
         ),
         const Spacer(),
         Text(
-          song.duration.toString(),
+          formatDuration(song.duration).toString(),
           style: Theme.of(context).textTheme.titleSmall,
         ),
         SizedBox(width: 20.w),
@@ -58,5 +67,11 @@ class PlaylistItem extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  formatDuration(double number) {
+    int minutes = number.toInt();
+    int seconds = ((number - minutes) * 100).toInt();
+    return "${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}";
   }
 }
