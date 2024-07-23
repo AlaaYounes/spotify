@@ -3,6 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:spotify/core/config/assets/app_images.dart';
 import 'package:spotify/features/layout/domain/entities/song_entity.dart';
 
+import '../../../playing_scong/presentation/pages/now_playing_screen.dart';
+
 class SongsListItem extends StatelessWidget {
   final SongEntity song;
 
@@ -31,19 +33,28 @@ class SongsListItem extends StatelessWidget {
             ),
             Align(
               alignment: Alignment.bottomRight,
-              child: Container(
-                height: 35.h,
-                width: 35.w,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Theme.of(context).brightness == Brightness.dark
-                      ? const Color(0xff2C2C2C)
-                      : const Color(0xffE6E6E6),
-                  image: DecorationImage(
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => NowPlayingScreen(song: song)));
+                },
+                child: Container(
+                  height: 35.h,
+                  width: 35.w,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? const Color(0xff2C2C2C)
+                        : const Color(0xffE6E6E6),
+                    image: DecorationImage(
                       image: AssetImage(
                           Theme.of(context).brightness == Brightness.dark
                               ? AppImages.playIconDark
-                              : AppImages.playIcon)),
+                              : AppImages.playIcon),
+                    ),
+                  ),
                 ),
               ),
             ),
